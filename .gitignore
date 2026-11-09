@@ -57,3 +57,6 @@ Desktop.ini
 
 # Git
 *.orig
+
+# Package
+*.vsix

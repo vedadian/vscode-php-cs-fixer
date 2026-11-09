@@ -1,6 +1,6 @@
 import path from "node:path";
 import childProcess from "node:child_process";
-import { parsePatch, type StructuredPatch } from "diff";
+import { parsePatch, type StructuredPatch } from "./diff";
 import {
   languages,
   Position,

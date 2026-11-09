@@ -22,3 +22,7 @@ pnpm run compile
 ```
 
 Open this repository in Visual Studio Code and press `F5` to launch the extension in an Extension Development Host. The included launch configuration compiles the TypeScript before launch. Use `pnpm run watch` to compile continuously during development.
+
+## Acknowledgment
+
+This project uses jsdiff for parsing the php-cs-fixer diff output. To enable packaging, their source is directly included in the repository.

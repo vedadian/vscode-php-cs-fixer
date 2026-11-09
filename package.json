@@ -7,6 +7,10 @@
     "vscode": ">=1.145.0"
   },
   "description": "Format PHP documents with the PHP CS Fixer installed in your Composer project.",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/vedadian/vscode-php-cs-fixer.git"
+  },
   "categories": [
     "Formatters"
   ],
@@ -15,8 +19,7 @@
     "onLanguage:php"
   ],
   "scripts": {
-    "compile": "tsc -p ./",
-    "watch": "tsc --watch -p ./",
+    "compile": "tsc -p ./ && cp src/diff.js out/",
     "package": "pnpm run compile && pnpm exec vsce package",
     "publish": "pnpm run compile && pnpm exec vsce publish"
   },
@@ -32,9 +35,6 @@
     "@types/vscode": "^1.145.0",
     "@vscode/vsce": "^4.1.0",
     "typescript": "^7.0.2"
-  },
-  "dependencies": {
-    "diff": "^9.0.0"
   },
   "contributes": {
     "languages": [
