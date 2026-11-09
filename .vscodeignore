@@ -1,0 +1,54 @@
+# Development configuration
+.vscode/**
+.gitignore
+.gitattributes
+.git/**
+.github/**
+
+# # Dependencies
+# node_modules/**
+# **/node_modules/**
+
+# Build and test files
+src/**
+test/**
+tests/**
+coverage/**
+out/test/**
+*.test.ts
+*.spec.ts
+jest.config.*
+vitest.config.*
+
+# TypeScript development files
+tsconfig.json
+tsconfig.*.json
+*.map
+
+# Documentation and development files
+README.md
+CONTRIBUTING.md
+CHANGELOG.md
+LICENSE
+.eslintrc*
+.prettierrc*
+.editorconfig
+
+# Package manager files
+.yarn/**
+.pnpm-store/**
+
+# Temporary files
+*.log
+*.tmp
+.DS_Store
+Thumbs.db
+
+# Environment and secrets
+.env
+.env.*
+!.env.example
+
+# CI/CD
+azure-pipelines.yml
+.travis.yml

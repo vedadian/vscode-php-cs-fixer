@@ -1,0 +1,51 @@
+{
+  "name": "vscode-php-cs-fixer",
+  "displayName": "PHP CS Fixer",
+  "version": "0.1.0",
+  "publisher": "behrooz-vedadian",
+  "engines": {
+    "vscode": ">=1.145.0"
+  },
+  "description": "Format PHP documents with the PHP CS Fixer installed in your Composer project.",
+  "categories": [
+    "Formatters"
+  ],
+  "main": "./out/extension.js",
+  "activationEvents": [
+    "onLanguage:php"
+  ],
+  "scripts": {
+    "compile": "tsc -p ./",
+    "watch": "tsc --watch -p ./",
+    "package": "pnpm run compile && pnpm exec vsce package",
+    "publish": "pnpm run compile && pnpm exec vsce publish"
+  },
+  "keywords": [
+    "php",
+    "formatter",
+    "php-cs-fixer"
+  ],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^26.6.6",
+    "@types/vscode": "^1.145.0",
+    "@vscode/vsce": "^4.1.0",
+    "typescript": "^7.0.2"
+  },
+  "dependencies": {
+    "diff": "^9.0.0"
+  },
+  "contributes": {
+    "languages": [
+      {
+        "id": "php"
+      }
+    ],
+    "formatters": [
+      {
+        "language": "php"
+      }
+    ]
+  }
+}
