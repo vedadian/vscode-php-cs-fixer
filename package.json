@@ -1,6 +1,6 @@
 {
-  "name": "vscode-php-cs-fixer",
-  "displayName": "PHP CS Fixer",
+  "name": "vedadian-php-cs-fixer",
+  "displayName": "Vedadian's PHP CS Fixer",
   "version": "0.1.0",
   "publisher": "behrooz-vedadian",
   "engines": {

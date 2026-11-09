@@ -13,13 +13,12 @@ import {
   type ExtensionContext,
 } from "vscode";
 
+const log = window.createOutputChannel("Vedadian's PHP CS Fixer");
+
 const beginDiff = "---------- begin diff ----------";
 const endDiff = "----------- end diff -----------";
 
-function toTextEdits(
-  patches: StructuredPatch[],
-  log: OutputChannel,
-): TextEdit[] {
+function toTextEdits(patches: StructuredPatch[]): TextEdit[] {
   const edits: TextEdit[] = [];
 
   const addEdit = (
@@ -144,7 +143,6 @@ function runPhpCsFixer(
 }
 
 export function activate(context: ExtensionContext) {
-  const log = window.createOutputChannel("PHP CS Fixer");
   context.subscriptions.push(
     languages.registerDocumentFormattingEditProvider(
       { language: "php" },
@@ -172,7 +170,7 @@ export function activate(context: ExtensionContext) {
           const phpCode = document.getText();
           try {
             const result = await runPhpCsFixer(phpCode, cwd, executable);
-            const edits = toTextEdits(result, log);
+            const edits = toTextEdits(result);
             return edits;
           } catch (error) {
             log.appendLine(`Error: ${(error as Error).message}`);
@@ -185,5 +183,5 @@ export function activate(context: ExtensionContext) {
 }
 
 export function deactivate() {
-  // Extension deactivation code here
+  log.appendLine("Deactivating Vedadian's PHP CS Fixer extension.");
 }
