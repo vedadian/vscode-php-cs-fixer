@@ -9,7 +9,6 @@ import {
   TextEdit,
   window,
   workspace,
-  type OutputChannel,
   type ExtensionContext,
 } from "vscode";
 
@@ -135,6 +134,10 @@ function runPhpCsFixer(
         reject(new Error("Failed to extract diff from PHP CS Fixer output."));
         return;
       }
+      if (stdout.trim() === "") {
+        resolve([]);
+        return;
+      }
       resolve(parsePatch(stdout));
     });
 
@@ -142,7 +145,19 @@ function runPhpCsFixer(
   });
 }
 
-export function activate(context: ExtensionContext) {
+export async function activate(context: ExtensionContext) {
+  const toolsPaths = await findComposerJsonAndPhpCsFixer();
+  if (toolsPaths.length === 0) {
+    log.appendLine(
+      "Could not find the composer.json and/or php-cs-fixer executable.",
+    );
+  }
+  log.appendLine(
+    `Using composer.json at: ${toolsPaths[0].composerJsonPath.fsPath}`,
+  );
+  log.appendLine(
+    `Using php-cs-fixer at: ${toolsPaths[0].phpCsFixerPath.fsPath}`,
+  );
   context.subscriptions.push(
     languages.registerDocumentFormattingEditProvider(
       { language: "php" },
@@ -151,20 +166,9 @@ export function activate(context: ExtensionContext) {
           if (document.languageId !== "php") {
             return [];
           }
-          const toolsPaths = await findComposerJsonAndPhpCsFixer();
           if (toolsPaths.length === 0) {
-            log.appendLine(
-              "Could not find the composer.json and/or php-cs-fixer executable.",
-            );
-            log.show();
             return [];
           }
-          log.appendLine(
-            `Using composer.json at: ${toolsPaths[0].composerJsonPath.fsPath}`,
-          );
-          log.appendLine(
-            `Using php-cs-fixer at: ${toolsPaths[0].phpCsFixerPath.fsPath}`,
-          );
           const cwd = path.dirname(toolsPaths[0].composerJsonPath.fsPath);
           const executable = toolsPaths[0].phpCsFixerPath.fsPath;
           const phpCode = document.getText();
@@ -174,7 +178,6 @@ export function activate(context: ExtensionContext) {
             return edits;
           } catch (error) {
             log.appendLine(`Error: ${(error as Error).message}`);
-            log.show();
           }
         },
       },
